@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TheBurger</title>
+
+<style>
+/* 🌊 Animated dark "water" background */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  overflow-x: hidden;
+  background: #000;
+}
+
+/* moving water layers */
+.water {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 20% 20%, #111, #000);
+  animation: move 12s infinite linear;
+  opacity: 0.8;
+  z-index: -2;
+}
+
+.water2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 80% 60%, #0a0a0a, #000);
+  animation: move2 18s infinite linear;
+  opacity: 0.6;
+  z-index: -1;
+}
+
+@keyframes move {
+  0% {transform: translate(0,0);}
+  50% {transform: translate(-50px, -30px);}
+  100% {transform: translate(0,0);}
+}
+
+@keyframes move2 {
+  0% {transform: translate(0,0);}
+  50% {transform: translate(60px, 40px);}
+  100% {transform: translate(0,0);}
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  border-bottom: 1px solid #222;
+}
+
+/* MAIN CONTAINER */
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 15px;
+}
+
+/* GLASS CARDS */
+.card {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  background: rgba(255,255,255,0.1);
+}
+
+button {
+  background: #ff3d2e;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+/* SECTIONS */
+.section {
+  display: none;
+}
+
+.active {
+  display: block;
+}
+
+/* CART */
+#cart {
+  margin-top: 10px;
+  color: #ccc;
+}
+
+/* BOTTOM NAV */
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  background: rgba(0,0,0,0.8);
+  border-top: 1px solid #222;
+}
+
+.nav button {
+  flex: 1;
+  padding: 15px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.nav button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+h2 {
+  text-align: center;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="water"></div>
+<div class="water2"></div>
+
+<header>🍔 TheBurger</header>
+
+<div class="container">
+
+  <!-- MENU -->
+  <div id="menu" class="section active">
+    <h2>🍟 Menu</h2>
+
+    <div class="card">
+      <span>Classic Burger</span>
+      <button onclick="add('Classic Burger')">Add</button>
+    </div>
+
+    <div class="card">
+      <span>Cheese Burger</span>
+      <button onclick="add('Cheese Burger')">Add</button>
+    </div>
+
+    <div class="card">
+      <span>Fries</span>
+      <button onclick="add('Fries')">Add</button>
+    </div>
+
+    <div class="card">
+      <span>Soda</span>
+      <button onclick="add('Soda')">Add</button>
+    </div>
+  </div>
+
+  <!-- CART -->
+  <div id="cartPage" class="section">
+    <h2>🛒 Cart</h2>
+    <div id="cart">Empty</div>
+  </div>
+
+  <!-- INFO -->
+  <div id="info" class="section">
+    <h2>ℹ️ Info</h2>
+    <p style="text-align:center; color:#ccc;">
+      TheBurger is a modern fast-food experience 🍔  
+      Fresh food, fast service, and online ordering.
+    </p>
+
+    <p style="text-align:center;">
+      📞 +1 (346) 508-7531
+    </p>
+  </div>
+
+</div>
+
+<!-- NAV BAR -->
+<div class="nav">
+  <button onclick="show('menu')">Menu</button>
+  <button onclick="show('cartPage')">Cart</button>
+  <button onclick="show('info')">Info</button>
+</div>
+
+<script>
+let cart = [];
+
+function add(item) {
+  cart.push(item);
+  document.getElementById("cart").innerText = cart.join(", ");
+}
+
+function show(page) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(page).classList.add('active');
+}
+</script>
+
+</body>
+</html>
